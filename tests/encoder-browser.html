@@ -1,0 +1,9 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Vérification de l’encodeur GIF</title><script src="vendor/gif.js" defer></script></head><body><h1>Vérification GIF</h1><button id="run">Tester l’encodage réel</button><p id="status">Prêt</p><img id="preview" alt="Animation de vérification"><script>
+document.getElementById('run').onclick=()=>{
+const status=document.getElementById('status');status.textContent='Encodage en cours';
+const c=document.createElement('canvas');c.width=96;c.height=64;const ctx=c.getContext('2d');
+const gif=new GIF({workers:2,width:96,height:64,workerScript:'vendor/gif.worker.js',repeat:0});
+for(let i=0;i<3;i++){ctx.fillStyle=['#176d65','#db9b59','#385e89'][i];ctx.fillRect(0,0,96,64);ctx.fillStyle='white';ctx.fillRect(8+i*24,20,16,16);gif.addFrame(ctx,{copy:true,delay:200});}
+gif.on('finished',async blob=>{const bytes=new Uint8Array(await blob.arrayBuffer());const header=String.fromCharCode(...bytes.slice(0,6));document.getElementById('preview').src=URL.createObjectURL(blob);status.textContent=header==='GIF89a'?'SUCCÈS : GIF89a · 96 × 64 · 3 images · 600 ms · '+blob.size+' octets':'ÉCHEC : en-tête invalide';gif.freeWorkers.forEach(w=>w.terminate());});
+gif.render();};
+</script></body></html>
