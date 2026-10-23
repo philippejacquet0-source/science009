@@ -10,7 +10,7 @@ export function embedSource(value) {
   const url = parseSource(value);
   // Nullschool's kiosk option keeps its full menu and zoom controls inside an iframe.
   url.searchParams.set('kiosk', '');
-  return '/earth/index.html' + url.search + url.hash;
+  return './earth/index.html' + url.search + url.hash;
 }
 export function parseUTC(value) {
   if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value)) throw new Error('Renseignez les deux dates en UTC.');

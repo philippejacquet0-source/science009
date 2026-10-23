@@ -37,9 +37,13 @@ Construction : `npm run build`.
 
 Dépôt : https://github.com/philippejacquet0-source/science009
 
-Application publiée : https://meteo-gif.philippe0.chatgpt.site
+Page statique : https://philippejacquet0-source.github.io/science009/
 
-La publication actuelle utilise Vinext sur Cloudflare Workers via Sites. GitHub Pages seul ne peut pas exécuter la route serveur `/earth-data/` : déposer le code sur GitHub ne remplace pas ce relais par un hébergement statique.
+Application et relais météo : https://meteo-gif.philippe0.chatgpt.site
+
+`npm run build:pages` génère le dossier statique `docs/` sans compilation serveur ni dépendance à installer. GitHub Pages publie la branche `main`, dossier `/docs`. Après une modification, régénérer ce dossier et commiter son contenu.
+
+La page, la carte, les réglages et l’encodage GIF fonctionnent dans le navigateur. Les données météo passent par le relais public existant sur Sites, car leurs serveurs d’origine ne permettent pas directement les lectures depuis GitHub Pages. Ce relais doit rester disponible ; il autorise les lectures CORS publiques sans cookies ni identification. Les URL de données sont adaptées uniquement dans les copies générées, afin de conserver la version Sites.
 
 ## Validation
 

@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {INITIAL_URL,parseSource,parseUTC,sourceDate,atTime,makePlan} from '../public/core.mjs';
+import {INITIAL_URL,parseSource,parseUTC,sourceDate,atTime,makePlan,embedSource} from '../public/core.mjs';
 const settings={url:INITIAL_URL,start:'2026-10-22T06:00',end:'2026-10-23T06:00',step:3,maxSeconds:8,width:960,samples:4,wait:10};
 test('le lien conserve les couches et la projection en changeant uniquement la date',()=>{const url=atTime(INITIAL_URL,parseUTC('2026-10-22T03:00'));assert.match(url,/#2026\/10\/22\/0300Z\/wind\/surface\/level\/orthographic=7.76,47.55,1855\/loc=-1.630,49.451$/);assert.equal(sourceDate(url),Date.UTC(2026,9,22,3));});
 test('planning en UTC inclusif, indépendant du fuseau du poste, avec durée GIF exacte',()=>{const p=makePlan(settings);assert.equal(p.times.length,9);assert.equal(p.times[0],Date.UTC(2026,9,22,6));assert.equal(p.times.at(-1),Date.UTC(2026,9,23,6));assert.equal(p.frames,36);assert.equal(p.delays.reduce((a,b)=>a+b),8000);assert.ok(p.delays.every(x=>x>=20&&x%10===0));});
@@ -18,4 +18,13 @@ test('les pas de 1 h et 2 h incluent chaque échéance depuis une heure UTC quel
     assert.match(atTime(INITIAL_URL,p.times[0]),/\/0700Z\//);
   }
   assert.throws(()=>makePlan({...settings,start:'2026-10-23T07:30',end:'2026-10-23T11:30',step:1}),/heures entières/);
+});
+
+ test('la carte reste dans le sous-chemin GitHub Pages',()=>{
+  const page=new URL('https://example.github.io/science009/');
+  const frame=new URL(embedSource(INITIAL_URL),page);
+  assert.equal(frame.origin,page.origin);
+  assert.equal(frame.pathname,'/science009/earth/index.html');
+  assert.equal(frame.hash,new URL(INITIAL_URL).hash);
+  assert.ok(frame.searchParams.has('kiosk'));
 });

@@ -1,9 +1,10 @@
 import {parseSource,sourceDate,atTime,embedSource} from './core.mjs';
 export function createMapController(frame) {
+  const mapPath=new URL('./earth/index.html',location.href).pathname;
   function state() {
     try {
       const loc=frame.contentWindow.location;
-      if(loc.origin!==location.origin||!loc.pathname.startsWith('/earth/'))return null;
+      if(loc.origin!==location.origin||loc.pathname!==mapPath)return null;
       const url=parseSource('https://earth.nullschool.net/'+loc.search+loc.hash);
       const doc=frame.contentDocument;
       const dateText=doc.querySelector('#menu [data-name="date-field"]')?.textContent?.trim()||'';

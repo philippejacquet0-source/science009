@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Créez un GIF des phénomènes météo avec Nullschool : une carte, une période, une boucle.">
+  <meta name="theme-color" content="#153e42"><title>Béroueizh — GIF météo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%231d6766'/%3E%3Cpath d='M8 19q8-8 16 0t16 0M8 28q8-8 16 0t16 0' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css"><script src="vendor/gif.js" defer></script><script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="topbar"><h1 class="site-title"><a class="brand" href="./" aria-label="Béroueizh, accueil"><span class="brand-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 11q6-7 13 0t13 0M3 20q6-7 13 0t13 0"/></svg></span>Béroueizh<span class="brand-gif">GIF météo</span></a></h1><div class="toplinks"><span class="local-dot"></span><span>Création dans votre navigateur</span><button type="button" class="text-button" id="shareBtn">Partager ↗</button><button type="button" class="text-button" id="helpBtn">Aide</button></div></header>
+<main>
+  <div class="workspace">
+    <section class="map-column" aria-label="Carte et aperçu">
+      <div class="source-bar"><div><span class="step-dot">1</span><strong>Carte Nullschool</strong></div><a id="sourceLink" target="_blank" rel="noopener noreferrer" href="https://earth.nullschool.net/">Ouvrir dans Nullschool ↗</a></div>
+      <div class="map-shell" id="mapShell">
+        <div class="map-top"><span><i></i><span id="layerName">Vent de surface</span></span><span class="map-tag" id="mapTag">CARTE INTERACTIVE</span></div>
+        <div class="capture-area" id="captureArea"><iframe id="earthFrame" title="Carte interactive Earth Nullschool" src="about:blank" referrerpolicy="no-referrer" allow="fullscreen"></iframe><div class="capture-shield" aria-hidden="true"></div></div>
+        <div class="map-bottom"><span id="mapTime">Heure de Paris</span><span>earth.nullschool.net</span></div>
+      </div>
+      <div class="timeline" id="timeline"><button class="icon-button" type="button" id="playBtn" title="Parcourir les échéances" aria-label="Parcourir les échéances">▶</button><div class="timeline-track"><div class="timeline-label"><span id="timelineStart"></span><span id="timelineEnd"></span></div><input id="scrubber" type="range" min="0" max="8" value="8" aria-label="Échéance de la carte"></div><span class="timeline-count" id="timelineCount">9 échéances</span></div>
+      <div class="source-input"><label for="sourceUrl">Importer un lien Nullschool <span>· facultatif, pour charger une autre carte</span></label><div class="input-action"><input type="url" id="sourceUrl" spellcheck="false" aria-describedby="sourceHelp"><button type="button" id="applySource">Appliquer ↗</button></div><p id="sourceHelp">Choisissez les couches, le niveau et la projection directement avec le menu « earth » en bas à gauche. Le curseur, Play et l’export changent ensuite les dates automatiquement en conservant vos choix.</p></div>
+      <div class="preset-row" aria-label="Choisir un phénomène"><button class="preset" data-preset="waves" type="button">≈ Vagues</button><button class="preset active" data-preset="wind" type="button">↝ Vent</button><button class="preset" data-preset="rain" type="button">☂ Précipitations</button><button class="preset" data-preset="water" type="button">◉ Eau atmosphérique</button><button class="preset" data-preset="clouds" type="button">☁ Nuages</button></div>
+      <p class="map-note">Pas disponibles : 1, 2, 3, 6, 12 ou 24 h. La fréquence réelle des données dépend de la couche Nullschool ; plusieurs heures peuvent partager les mêmes données, notamment pour les courants océaniques actualisés quotidiennement.</p>
+    </section>
+    <aside class="settings" aria-label="Réglages du GIF">
+      <form id="settingsForm">
+        <div class="panel-heading"><span class="step-dot">2</span><h2>Réglages du GIF</h2><span class="utc-badge" title="Europe/Paris · heure d’été et d’hiver automatiques">Paris</span></div>
+        <div class="time-actions"><button type="button" id="nowBtn" class="time-button" title="Revenir à l’heure courante, arrondie à l’heure entière">Instant Normand</button><span>Heure de Paris</span></div>
+        <div class="dates"><label for="startDate">Début de la période<input id="startDate" type="datetime-local" step="3600" required></label><div><label for="endDate">Fin de la période<input id="endDate" type="datetime-local" step="3600" required></label><div class="end-shortcuts" aria-label="Durée depuis le début"><button type="button" data-end-hours="12" title="Finir 12 heures après le début">+12 h</button><button type="button" data-end-hours="24" title="Finir 24 heures après le début">+24 h</button><button type="button" data-end-hours="36" title="Finir 36 heures après le début">+36 h</button><button type="button" data-end-hours="48" title="Finir 48 heures après le début">+48 h</button><button type="button" data-end-hours="72" title="Finir 72 heures après le début">+72 h</button></div></div></div>
+        <div class="two-fields"><label for="timeStep">Pas météo<select id="timeStep"><option value="1">1 heure</option><option value="2">2 heures</option><option value="3" selected>3 heures</option><option value="6">6 heures</option><option value="12">12 heures</option><option value="24">24 heures</option></select></label><label for="maxDuration">Durée max. du GIF<div class="unit-input"><input id="maxDuration" type="number" min="1" max="30" step="0.1" value="8" required><span>sec.</span></div></label></div>
+        <div class="divider"></div>
+        <div class="two-fields"><label for="resolution">Largeur d’export<select id="resolution"><option value="640">640 px · léger</option><option value="960" selected>960 px · standard</option><option value="1280">1 280 px · détaillé</option></select></label><label for="samples">Mouvement<select id="samples"><option value="4">Traînées animées</option><option value="1">1 image / échéance</option></select></label></div>
+        <details id="advanced"><summary>Réglages de capture <span>+</span></summary><div class="advanced-body"><label for="loadWait">Attente après chargement<div class="unit-input"><input id="loadWait" type="number" min="1" max="60" value="10"><span>sec.</span></div></label><p>Le chargement de chaque date est vérifié automatiquement. Cette attente supplémentaire, de 1 à 60 secondes, laisse se développer les traînées avant la capture.</p></div></details>
+        <div class="estimate" id="estimate"><div><strong id="estimateFrames">36 images</strong><span id="estimateDetails">9 échéances · boucle de 8 s</span></div><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M28 14a11 11 0 1 0 0 9M28 6v9h-9"/></svg></div>
+        <p class="form-message" id="formMessage" role="alert" hidden></p>
+        <button type="submit" id="generateBtn" class="primary-button"><span>▧</span> Générer un GIF <span>↗</span></button>
+        <p class="capture-hint">Capture directe de la carte : aucun partage d’écran à sélectionner. Gardez cet onglet visible pendant la création.</p>
+      </form>
+    </aside>
+  </div>
+  <section class="result" id="result" hidden aria-labelledby="resultTitle"><div class="result-info"><p class="eyebrow">VOTRE ANIMATION</p><h2 id="resultTitle">GIF prêt</h2><p id="resultMeta"></p><p class="result-warning">Les dates et le chargement des données sont contrôlés avant chaque capture. La génération s’arrête si une échéance ne peut pas être chargée.</p><a id="downloadGif" class="primary-button" download="meteo.gif">↓ Télécharger le GIF</a></div><img id="resultImage" alt="Aperçu du GIF météo généré"></section>
+  <section class="howto" id="howto" hidden><div><span class="step-number">01</span><h3>Choisissez dans la carte</h3><p>Ouvrez « earth » en bas à gauche : couches, niveaux, projections et dates se règlent directement dans la frame.</p></div><div><span class="step-number">02</span><h3>Réglez le temps</h3><p>Les dates définissent la période météo. La durée maximale définit la vitesse de lecture du GIF. Toutes les heures sont celles de Paris, avec changement d’heure automatique. Les raccourcis calculent la fin depuis le début.</p></div><div><span class="step-number">03</span><h3>Capturez la boucle</h3><p>Cliquez sur « Générer un GIF » : les dates défilent automatiquement en conservant vos paramètres et votre cadrage.</p></div></section>
+  <footer><span>BÉROUEIZH · GIF météo</span><span>Cartographie et données : <a href="https://earth.nullschool.net/about.html" target="_blank" rel="noopener noreferrer">Earth Nullschool ↗</a></span></footer>
+</main>
+<div class="record-dock" id="recordDock" hidden><span class="record-light"></span><div><strong id="recordTitle">Préparation…</strong><span id="recordDetail">Gardez cet onglet visible</span></div><progress id="progressBar" max="100" value="0" aria-label="Progression de la création"></progress><button type="button" id="cancelBtn">Annuler</button></div>
+<dialog id="shareDialog" aria-labelledby="shareTitle"><div class="dialog-head"><h2 id="shareTitle">Partager la configuration</h2><button type="button" id="closeShare" class="icon-button" aria-label="Fermer le partage">✕</button></div><p>Ce lien restitue la carte, le cadrage, les dates et les réglages du GIF.</p><label for="shareUrl">Lien à transmettre</label><input id="shareUrl" type="url" readonly><div class="dialog-actions"><span id="shareStatus" role="status"></span><button type="button" id="copyShare" class="primary-button">Copier le lien</button></div></dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+</body></html>
