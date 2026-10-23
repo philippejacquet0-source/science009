@@ -8,6 +8,7 @@ Création de GIF des phénomènes météo avec une carte Earth Nullschool, une p
 - Raccourcis de fin **+12 h, +24 h, +36 h, +48 h et +72 h**, calculés depuis le début en heures réellement écoulées.
 - Pas de 1, 2, 3, 6, 12 ou 24 heures ; attente supplémentaire réglable de 1 à 60 secondes après chargement des données.
 - **Partager** produit un lien qui restitue la carte, le cadrage, le repère, les dates et tous les réglages d’export. Aucun GIF n’est envoyé automatiquement.
+- Jusqu’à 6 marqueurs nommés : bouton **Ajouter des marqueurs**, puis clics dans la carte. La légende suit les valeurs, unités et couleurs du paramètre coloré, reste dans le GIF et dans les liens partagés. Les coordonnées restent fixes ; les valeurs indisponibles sont signalées.
 - Capture directe des couches de la carte, sans partage d’écran, et téléchargement du GIF encodé dans le navigateur.
 
 Le menu « earth » reste utilisable dans la frame. La fréquence réelle des données dépend de la couche : plusieurs échéances peuvent utiliser les mêmes fichiers, notamment les vagues et les courants. Le moteur Nullschool conserve son fonctionnement interne en UTC ; la conversion pour l’utilisateur est faite en Europe/Paris.
@@ -57,6 +58,6 @@ Les tests couvrent le plan d’export, les limites de mémoire, les pas horaires
 
 ## Sources et notices
 
-Le moteur public Earth Nullschool, ses géométries et les notices de licence sont conservés dans `public/earth`. Les adaptations locales concernent les adresses de téléchargement, la synchronisation du curseur dans la frame, un témoin de l’instant accepté et la conservation des buffers WebGL pour l’export. Les notices de l’encodeur GIF sont dans `public/vendor`.
+Le moteur public Earth Nullschool, ses géométries et les notices de licence sont conservés dans `public/earth`. Les adaptations locales concernent les adresses de téléchargement, la synchronisation du curseur dans la frame, un témoin de l’instant accepté et la conservation des buffers WebGL pour l’export et un pont local vers les champs, unités, palettes et projections du moteur pour les marqueurs. Les notices de l’encodeur GIF sont dans `public/vendor`.
 
 Le nom est une création mêlant les sonorités de la **bérouée** (brouillard humide dans le Bocage virois) et de **Breizh**. Référence normande : https://www.paysdevire-normandie-tourisme.fr/les-bases-du-patois-normand/

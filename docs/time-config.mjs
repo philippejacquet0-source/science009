@@ -1,3 +1,4 @@
+import {validateMarkers} from './marker-config.mjs';
 import {INITIAL_URL,parseSource,parseUTC,inputDate,atTime,makePlan} from './core.mjs';
 export const PARIS_ZONE='Europe/Paris';
 const fields=new Intl.DateTimeFormat('fr-CA',{timeZone:PARIS_ZONE,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
@@ -24,6 +25,7 @@ export function shareURL(base,config){
   makePlan(config);
   const url=new URL(base);url.search='';url.hash='';
   for(const [key,value] of Object.entries({v:1,map:config.url,start:config.start,end:config.end,step:config.step,duration:config.maxSeconds,width:config.width,samples:config.samples,wait:config.wait}))url.searchParams.set(key,String(value));
+  if(config.markers?.length)url.searchParams.set('markers',JSON.stringify(validateMarkers(config.markers)));
   return url.href;
 }
 export function sharedConfig(value){
@@ -31,6 +33,7 @@ export function sharedConfig(value){
   if(!p.has('v'))return null;
   if(p.get('v')!=='1'||value.length>10000)throw new Error('Ce lien de configuration n’est pas pris en charge.');
   const config={url:p.get('map')||'',start:p.get('start')||'',end:p.get('end')||'',step:Number(p.get('step')),maxSeconds:Number(p.get('duration')),width:Number(p.get('width')),samples:Number(p.get('samples')),wait:Number(p.get('wait'))};
+  if(p.has('markers'))config.markers=validateMarkers(JSON.parse(p.get('markers')));
   parseSource(config.url);makePlan(config);
   return config;
 }
