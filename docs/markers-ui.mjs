@@ -1,4 +1,4 @@
-import {validateMarkers,MAX_MARKERS} from './marker-config.mjs';
+import {validateMarkers,MAX_MARKERS} from './marker-config.mjs?v=ef0c00002c00';
 export function createMarkersUI(frame,{toast,isBusy}){
   const $=id=>document.getElementById(id);
   let points=[],picking=false,bridge=null;

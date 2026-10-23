@@ -1,4 +1,4 @@
-import {installMarkersBridge} from './markers-bridge.mjs';
+import {installMarkersBridge} from './markers-bridge.mjs?v=ef0c00002c00';
 /*!
  * Copyright 2026 Nullschool Technologies Inc.
  */

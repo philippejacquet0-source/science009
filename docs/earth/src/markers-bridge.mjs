@@ -1,4 +1,4 @@
-import {validateMarkers,sampleMarker} from '../../marker-config.mjs';
+import {validateMarkers,sampleMarker} from '../../marker-config.mjs?v=ef0c00002c00';
 
 export function installMarkersBridge({handles,agents,events,unitFor}){
   const viewport=document.querySelector('[data-type="geo-canvas"]');

@@ -1,5 +1,5 @@
-import {validateMarkers} from './marker-config.mjs';
-import {INITIAL_URL,parseSource,parseUTC,inputDate,atTime,makePlan} from './core.mjs';
+import {validateMarkers} from './marker-config.mjs?v=ef0c00002c00';
+import {INITIAL_URL,parseSource,parseUTC,inputDate,atTime,makePlan} from './core.mjs?v=ef0c00002c00';
 export const PARIS_ZONE='Europe/Paris';
 const fields=new Intl.DateTimeFormat('fr-CA',{timeZone:PARIS_ZONE,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
 export function parisInput(time){

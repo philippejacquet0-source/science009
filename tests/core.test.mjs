@@ -28,3 +28,9 @@ test('les pas de 1 h et 2 h incluent chaque échéance depuis une heure UTC quel
   assert.equal(frame.hash,new URL(INITIAL_URL).hash);
   assert.ok(frame.searchParams.has('kiosk'));
 });
+test('la frame et ses modules suivent la version de publication',async()=>{
+  const {embedSource:versioned}=await import('../public/core.mjs?v=publication-test');
+  const frame=new URL(versioned(INITIAL_URL),'https://example.github.io/science009/');
+  assert.equal(frame.searchParams.get('_build'),'publication-test');
+  assert.equal(frame.pathname,'/science009/earth/index.html');
+});

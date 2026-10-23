@@ -6,6 +6,7 @@ export function createMapController(frame) {
       const loc=frame.contentWindow.location;
       if(loc.origin!==location.origin||loc.pathname!==mapPath)return null;
       const url=parseSource('https://earth.nullschool.net/'+loc.search+loc.hash);
+      url.searchParams.delete('_build');
       const doc=frame.contentDocument;
       const dateText=doc.querySelector('#menu [data-name="date-field"]')?.textContent?.trim()||'';
       const dateMatch=dateText.match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})/);

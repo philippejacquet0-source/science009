@@ -1,8 +1,8 @@
-import {INITIAL_URL,parseSource,parseUTC,sourceDate,inputDate,atTime,makePlan} from './core.mjs';
-import {createMapController} from './map-controller.mjs';
-import {createMarkersUI} from './markers-ui.mjs';
-import {captureMap} from './map-capture.mjs';
-import {PARIS_ZONE,parisInput,parisInstant,currentHour,defaultConfig,shareURL,sharedConfig} from './time-config.mjs';
+import {INITIAL_URL,parseSource,parseUTC,sourceDate,inputDate,atTime,makePlan} from './core.mjs?v=ef0c00002c00';
+import {createMapController} from './map-controller.mjs?v=ef0c00002c00';
+import {createMarkersUI} from './markers-ui.mjs?v=ef0c00002c00';
+import {captureMap} from './map-capture.mjs?v=ef0c00002c00';
+import {PARIS_ZONE,parisInput,parisInstant,currentHour,defaultConfig,shareURL,sharedConfig} from './time-config.mjs?v=ef0c00002c00';
 const $ = id => document.getElementById(id);
 const frame = $('earthFrame');
 const map = createMapController(frame);

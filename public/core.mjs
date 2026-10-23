@@ -10,6 +10,8 @@ export function embedSource(value) {
   const url = parseSource(value);
   // Nullschool's kiosk option keeps its full menu and zoom controls inside an iframe.
   url.searchParams.set('kiosk', '');
+  const version=new URL(import.meta.url).searchParams.get('v');
+  if(version)url.searchParams.set('_build',version);
   return './earth/index.html' + url.search + url.hash;
 }
 export function parseUTC(value) {
